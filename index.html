@@ -460,7 +460,7 @@ const $$ = s => [...document.querySelectorAll(s)];
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const fmt = (x, d = 0) => Number(x).toLocaleString('id-ID', { minimumFractionDigits: d, maximumFractionDigits: d });
 const BUL = ['Agustus', 'September', 'Oktober'];
-const BUL3 = ['Ags', 'Sep', 'Okt'];
+const BUL3 = ['Agu', 'Sep', 'Okt'];
 const HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 const NAMA_BLN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 const R = D.R, T = D.tanggal, ND = T.length;
@@ -643,7 +643,7 @@ function drawMap(fit) {
   const el = $('#map'), s = S(), { noise, cls } = idsPeriode();
   const sel = ringsOf(st.kab);
   const tr = [
-    { type: 'scattermap', mode: 'lines', lon: sel.lon, lat: sel.lat, fill: 'toself', fillcolor: css('--ember') + '14', line: { width: 0, color: 'rgba(0,0,0,0)' }, hoverinfo: 'skip', name: 'wilayah' },
+    { type: 'scattermap', mode: 'lines', lon: sel.lon, lat: sel.lat, fill: 'toself', fillcolor: `rgba(${hex2rgb(css('--ember')).join(',')},0.10)`, line: { width: 0, color: 'rgba(0,0,0,0)' }, hoverinfo: 'skip', name: 'wilayah' },
     { type: 'scattermap', mode: 'lines', lon: D.garis.x, lat: D.garis.y, line: { width: 0.9, color: css('--ink2') }, opacity: 0.6, hoverinfo: 'skip', name: 'batas' }];
   if (st.noise) tr.push({ type: 'scattermap', mode: 'markers', lon: pick(noise, LON), lat: pick(noise, LAT), marker: { size: 3.2, color: css('--noise'), opacity: 0.55 }, hoverinfo: 'skip', name: 'noise' });
   cls.forEach((ids, c) => tr.push({ type: 'scattermap', mode: 'markers', lon: pick(ids, LON), lat: pick(ids, LAT), name: KELAS_LABEL[c],
@@ -806,7 +806,7 @@ function drawRM3(first) {
     // tabel kabupaten x bulan
     const rows = D.prof.map(p => ({ kab: p.kab, v: p.klaster_bulan })).sort((a, b) => b.v[2] - a.v[2] || b.v[1] - a.v[1]);
     const mx = Math.max(...rows.flatMap(r => r.v), 1);
-    $('#tkb').innerHTML = '<thead><tr><th>Kabupaten/kota</th><th class="n">Ags</th><th class="n">Sep</th><th class="n">Okt</th><th class="n">Ags ke Okt</th></tr></thead><tbody>' +
+    $('#tkb').innerHTML = '<thead><tr><th>Kabupaten/kota</th><th class="n">Agu</th><th class="n">Sep</th><th class="n">Okt</th><th class="n">Agu ke Okt</th></tr></thead><tbody>' +
       rows.map(r => { const d = r.v[2] - r.v[0];
         return `<tr><td>${r.kab}</td>` + r.v.map(v => `<td class="n" style="background:color-mix(in srgb,var(--s3) ${(6 + 52 * v / mx).toFixed(0)}%,transparent)">${v}</td>`).join('') +
         `<td class="n ${d > 0 ? 'up' : d < 0 ? 'down' : 'zero'}">${d > 0 ? '▲ +' + d : d < 0 ? '▼ ' + d : '0'}</td></tr>`; }).join('') + '</tbody>';
@@ -863,7 +863,7 @@ function drawReplay() {
     Object.assign({}, CFG, { displayModeBar: false }));
   const mc = MC();
   Plotly.react('mini', [{ type: 'bar', x: T.map((_, i) => i), y: D.harian, marker: { color: T.map((_, i) => (i >= a && i <= t) ? mc[bulanDari(i)] : css('--line2')) }, hoverinfo: 'skip' }],
-    base({ bargap: 0.15, margin: { l: 16, r: 16, t: 4, b: 18 }, xaxis: { fixedrange: true, tickvals: [0, 31, 61, 91], ticktext: ['1 Ags', '1 Sep', '1 Okt', '31 Okt'], showgrid: false }, yaxis: { visible: false, fixedrange: true } }),
+    base({ bargap: 0.15, margin: { l: 16, r: 16, t: 4, b: 18 }, xaxis: { fixedrange: true, tickvals: [0, 31, 61, 91], ticktext: ['1 Agu', '1 Sep', '1 Okt', '31 Okt'], showgrid: false }, yaxis: { visible: false, fixedrange: true } }),
     Object.assign({}, CFG, { displayModeBar: false, staticPlot: true }));
   $('#legAge').innerHTML = '<span class="label" style="margin-right:4px">Umur deteksi</span>' +
     [['hari terakhir', s[4]], ['1 hari', s[3]], ['2 sampai 3 hari', s[2]], ['4 sampai 5 hari', s[1]], ['6 hari', s[0]]].map(([l, c]) => `<span class="k"><span class="sw" style="background:${c}"></span>${l}</span>`).join('');
