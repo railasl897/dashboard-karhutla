@@ -93,7 +93,7 @@ ul.facts li{margin-bottom:6px}
 <h2>Data dan tahapan pengolahan</h2>
 <ul class="facts" id="facts"></ul>
 </section>
-<p class="foot">Kode pengolahan dan versi Streamlit ada di folder streamlit pada repository ini. Titik panas adalah indikasi kebakaran, bukan bukti kebakaran yang pasti.</p>
+<p class="foot">Dashboard ini versi web dari aplikasi Streamlit (app.py) Kelompok 5. Titik panas adalah indikasi kebakaran, bukan bukti kebakaran yang pasti.</p>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
 <script>
@@ -128,7 +128,7 @@ const draw = {
   rm1() {
     const eps = [...new Set(B.grid.map(g => g.eps_km))].sort((a, b) => a - b), mp = [...new Set(B.grid.map(g => g.minpts))].sort((a, b) => a - b);
     const z = mp.map(m => eps.map(e => B.grid.find(g => g.eps_km === e && g.minpts === m).silhouette));
-    Plotly.newPlot('heat', [{ type: 'heatmap', z, x: eps.map(e => fmt(e, e % 1 ? 1 : 0) + ' km'), y: mp.map(m => 'MinPts ' + m), colorscale: 'RdYlGn',
+    Plotly.newPlot('heat', [{ type: 'heatmap', z, x: eps.map(e => fmt(e, e % 1 ? 1 : 0) + ' km'), y: mp.map(m => 'MinPts ' + m), colorscale: [[0, '#e9967a'], [0.5, '#f7e7a1'], [1, '#7cc47f']], textfont: { color: '#1c221f' },
       text: z.map(r => r.map(v => fmt(v, 3))), texttemplate: '%{text}', hovertemplate: 'Eps %{x}, %{y}<br>Silhouette %{z:.4f}<extra></extra>', colorbar: { title: 'Silhouette' } }],
       layoutBase({ xaxis: { title: 'Eps' }, margin: { l: 80, r: 10, t: 10, b: 45 } }), CFG);
     const g = [...B.grid].sort((a, b) => b.silhouette - a.silhouette);
@@ -153,9 +153,9 @@ const draw = {
   rm3() {
     table('tbulan', [['Bulan', r => r.bulan], ['Jumlah titik', r => fmt(r.jumlah_titik)], ['Jumlah klaster', r => r.jumlah_klaster], ['Noise', r => fmt(r.titik_noise)],
       ['Noise (%)', r => fmt(r.persen_noise, 2)], ['Silhouette', r => fmt(r.silhouette, 4)], ['Titik terbanyak di', r => r.kabupaten_terbanyak]], B.bulan);
-    Plotly.newPlot('barbulan', [{ type: 'bar', x: B.bulan.map(b => b.bulan), y: B.bulan.map(b => b.jumlah_klaster), text: B.bulan.map(b => b.jumlah_klaster), textposition: 'outside',
+    Plotly.newPlot('barbulan', [{ type: 'bar', x: B.bulan.map(b => b.bulan), y: B.bulan.map(b => b.jumlah_klaster), text: B.bulan.map(b => b.jumlah_klaster), textposition: 'outside', cliponaxis: false,
       marker: { color: B.bulan.map(b => WB[b.bulan]) }, hovertemplate: '%{x}: %{y} klaster<extra></extra>' }],
-      layoutBase({ yaxis: { title: 'Jumlah klaster', gridcolor: css('--line') }, margin: { l: 55, r: 10, t: 20, b: 40 } }), CFG);
+      layoutBase({ yaxis: { title: 'Jumlah klaster', gridcolor: css('--line') }, margin: { l: 55, r: 10, t: 34, b: 40 } }), CFG);
     const kb = [...B.kabbulan].sort((a, b) => b.Oktober - a.Oktober);
     table('tkb', [['Kabupaten/kota', r => r.kabupaten], ['Agustus', r => r.Agustus], ['September', r => r.September], ['Oktober', r => r.Oktober]], kb);
     const tr = BUL.map(b => { const p = B.pusat.filter(x => x.bulan === b);
