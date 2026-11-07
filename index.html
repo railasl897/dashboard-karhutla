@@ -885,7 +885,7 @@ function drawMetode() {
     ['daynight', 'Waktu deteksi, yaitu D (siang) atau N (malam)', 'Tidak dipakai', 0],
   ];
   $('#tkolom').innerHTML = '<thead><tr><th>Kolom</th><th>Keterangan</th><th>Penggunaan</th></tr></thead><tbody>' +
-    kol.map(([k, d, u, on]) => `<tr><td class="mono" style="font-size:13px">${k}</td><td style="white-space:normal;min-width:240px">${d}</td><td style="white-space:normal;min-width:150px"><span class="chip${on ? ' on' : ''}">${u}</span></td></tr>`).join('') + '</tbody>';
+    kol.map(([k, d, u, on]) => `<tr><td class="mono" style="font-size:13px">${k}</td><td style="white-space:normal;min-width:200px">${d}</td><td style="white-space:normal;min-width:140px"><span class="chip${on ? ' on' : ''}" style="white-space:normal;line-height:1.35">${u}</span></td></tr>`).join('') + '</tbody>';
   const c = D.corong, mx = c[0].n;
   $('#funnel').innerHTML = c.map((r, i) => `<div class="row"><span>${r.tahap}</span><span class="num" style="font-weight:650">${fmt(r.n)}</span>` +
     `<div class="bar"><i style="width:${(100 * r.n / mx).toFixed(2)}%"></i></div>${i ? `<span class="d">${fmt(c[i - 1].n - r.n)} titik dikeluarkan</span>` : '<span class="d">semua deteksi di kotak 110,7° sampai 115,9° BT, 3,6° LS sampai 0,8° LU</span>'}</div>`).join('');
