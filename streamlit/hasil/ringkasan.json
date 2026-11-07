@@ -1,0 +1,10 @@
+{
+  "eps_km": 1.0,
+  "minpts": 20,
+  "silhouette": 0.0913,
+  "jumlah_klaster": 488,
+  "persen_noise": 17.09,
+  "jumlah_titik": 162912,
+  "titik_kalteng": 167729,
+  "titik_setelah_confidence": 162913
+}

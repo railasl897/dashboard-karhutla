@@ -1,0 +1,4 @@
+bulan,jumlah_titik,jumlah_klaster,titik_noise,persen_noise,silhouette,kabupaten_terbanyak
+Agustus,31965,157,10079,31.53,0.5708,Kotawaringin Timur
+September,66160,293,14834,22.42,0.3089,Pulang Pisau
+Oktober,64787,328,14038,21.67,0.4108,Seruyan
